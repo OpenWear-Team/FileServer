@@ -11,7 +11,7 @@
         ref="inputfile"
         type="file"
         multiple="multiple"
-        style="display:nono;width:0px;height:0px"
+        style="display:none;width:0px;height:0px"
         @change="inputfile"
       />
       <div ref="uploadarea" class="g-uploadarea">
@@ -26,8 +26,8 @@
           <p class="g-upload-drag-icon">
             <a-icon class="icon" type="inbox" />
           </p>
-          <p class="g-upload-text">点击或拖拽文件到此处上传</p>
-          <p class="g-upload-hint">支持单个或多个文件，严禁上传被禁止的文件</p>
+          <p class="g-upload-text">轻点或拖拽以上传~</p>
+          <p class="g-upload-hint">支持多文件.</p>
         </a-button>
       </div>
     </a-layout-header>
@@ -150,7 +150,7 @@ export default {
       this.needspace = this.usedspace + size;
       if (this.needspace > this.totalspace) {
         this.needpersent = 100;
-        this.$message.error("上传内容过大，请取消部分上传内容",10);
+        this.$message.error("No enough space on device!",10);
       } else {
         this.needpersent = (this.needspace / this.totalspace) * 100;
       }
@@ -245,7 +245,7 @@ export default {
           this.fileList[this.uploadindex].file,
           this.fileList[this.uploadindex].file.name
         );
-        this.axios.post("/upload", parms, config).then(response=> {
+        this.axios.post("/upload", parms, config).then(()=> {
             this.fileList[this.uploadindex].info.status = 'sub';
             this.uploadindex++;
             if (this.uploadindex < this.fileList.length) {
@@ -254,10 +254,10 @@ export default {
             this.disable = false;
           }
           this.getdiskinfo();
-        }).catch(err=> {
+        }).catch(()=> {
           this.fileList[this.uploadindex].info.status = 'err';
           this.uploadindex++;
-          this.$message.error("上传失败，请检查网络连接、浏览器地址或是否已关闭文件服务！",5);
+          this.$message.error("Upload failed!",5);
           if (this.uploadindex < this.fileList.length) {
           this.uploadfile();
           } else {

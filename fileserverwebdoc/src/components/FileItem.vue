@@ -44,7 +44,7 @@ export default {
   },
   props: {
     breakpoint: Boolean,
-    itemdata: Object|String,
+    itemdata: Object,
     type: String,
     show: Boolean,
     index: Number,
@@ -62,7 +62,7 @@ export default {
         fileSizeMsg = "1GB";
       else if (fileSizeByte > 1073741824 && fileSizeByte < 1099511627776)
         fileSizeMsg = (fileSizeByte / (1024 * 1024 * 1024)).toFixed(2) + "GB";
-      else fileSizeMsg = "文件超过1TB";
+      else fileSizeMsg = "文件大小大于 1TB?!";
       return fileSizeMsg;
     },
     gettime: function() {
